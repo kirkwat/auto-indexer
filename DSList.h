@@ -9,24 +9,24 @@
 
 using namespace std;
 
-template <typename PlaceHolderType>
-class LinkedList{
+template <class PlaceHolderType>
+class DSList{
 private:
     struct Node{
         Node* next;
         Node* prev;
-        PlaceHolderType data;
+        PlaceHolderType payload;
     };
     Node* head;
     Node* tail;
 
 public:
     //default constructor
-    LinkedList(){
+    DSList(){
         head=tail=nullptr;
     }
     //copy constructor
-    LinkedList(const LinkedList & copy) {
+    DSList(const DSList & copy) {
         head=tail=nullptr;
         Node* temp = copy.head;
         while(temp!=nullptr){
@@ -35,7 +35,7 @@ public:
         }
     }
     //copy assignment operator
-    LinkedList& operator=(const LinkedList& copy){
+    DSList& operator=(const DSList& copy){
         if(this != &copy){
             Node* temp = head;
             while(temp != nullptr){
@@ -53,7 +53,7 @@ public:
         return *this;
     }
     //destructor
-    ~LinkedList(){
+    ~DSList(){
         if(head==nullptr){
             return;
         }
