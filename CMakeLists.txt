@@ -11,8 +11,9 @@ set (EXE_NAME indexer)
 #   set (input02 "train_target.csv")
 # etc....
 
-set (input01 "input03.txt")
-set (input02 "")
+set (input01 "input01.txt")
+set (input02 "input02.txt")
+set (input03 "input03.txt")
 
 #
 ##########################################
@@ -24,4 +25,4 @@ endforeach()
 
 set(CMAKE_CXX_STANDARD 17)
 #set(CMAKE_CXX_FLAGS_DEBUG "-O3")
-add_executable(${EXE_NAME} main.cpp DSList.h DSVector.h)
+add_executable(${EXE_NAME} main.cpp DSList.h DSVector.h test.cpp)

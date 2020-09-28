@@ -24,38 +24,99 @@ public:
         data=new PlaceHolderType[capacity];
     }
     //copy constructor
-    DSVector(const DSVector & copy) {
-        //TODO
+    DSVector(const DSVector<PlaceHolderType> & copy) {
+        length = copy.length;
+        capacity = copy.capacity;
+        data = new PlaceHolderType[capacity];
+
+        for (int i = 0; i < copy.length; i++){
+            data[i] = copy.data[i];
+        }
     }
     //copy assignment operator
-    DSVector& operator=(const DSVector& copy){
-        delete[] data;
-        //TODO
+    DSVector& operator=(const DSVector<PlaceHolderType>& copy){
+        if (this != &copy) {
+            delete[] data;
+            length = copy.length;
+            capacity = copy.capacity;
+            data = new PlaceHolderType[capacity];
+
+            for (int i = 0; i < capacity; i++){
+                data[i] = copy.data[i];
+            }
+        }
+        return *this;
     }
     //destructor
     ~DSVector(){
         delete[] data;
     }
-    //push back a new node into vector
+    //push back a new element into vector
     void push_back(const PlaceHolderType& payload){
+        //if array is full, increase capacity
+        if(length==capacity){
+            data=resize();
+        }
         data[length]=payload;
         length++;
     }
-    //remove a node with given index
+    //remove an element with given index
     void remove(int index){
-        //TODO
+        //decrease array size
+        length--;
+        //temp array
+        PlaceHolderType* tempData = new PlaceHolderType[capacity];
+        //index counter for array
+        int x=0;
+        //transfer data
+        for (int i = 0; i < length; i++){
+            //transfer all elements except
+            if(i!=index){
+                tempData[i] = data[x];
+            }
+            //at index to be removed, skip transfer
+            else{
+                x++;
+                tempData[i] = data[x];
+            }
+            x++;
+        }
+        //deallocate old array
+        delete[] data;
+        data = new PlaceHolderType[capacity];
+        //transfer new array to vector array
+        for (int i = 0; i < capacity; i++){
+            data[i] = tempData[i];
+        }
+        //deallocate temp array
+        delete[] tempData;
+    }
+    //recreate bigger vector when it is at full capacity
+    PlaceHolderType* resize(){
+        //increase capacity by 5
+        capacity+=5;
+        //temp array
+        PlaceHolderType* tempData = new PlaceHolderType[capacity];
+        //transfer data
+        for (int i = 0; i < capacity; i++){
+            tempData[i] = data[i];
+        }
+        //deallocate array
+        delete []data;
+
+        return tempData;
     }
     //return element at given index
     PlaceHolderType& operator[] (int index){
         return data[index];
     }
-    //recreate bigger vector when it is at full capacity
-    void resize(){
-        //TODO
+    //get size of vector
+    int size(){
+        return length;
     }
     //get size of vector
-    int getSize(){
-        return length;
+    int getCapacity(){
+        return capacity;
     }
 };
 

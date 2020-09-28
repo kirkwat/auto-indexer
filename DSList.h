@@ -14,7 +14,7 @@ class DSList{
 private:
     struct Node{
         Node* next;
-        Node* prev;
+        Node* previous;
         PlaceHolderType payload;
     };
     Node* head;
