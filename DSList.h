@@ -5,20 +5,30 @@
 #ifndef INC_20F_AUTO_IDX_DSLIST_H
 #define INC_20F_AUTO_IDX_DSLIST_H
 
-#include <iostream>
-
 using namespace std;
 
-template <class PlaceHolderType>
+template <typename PlaceHolderType>
+class Node{
+public:
+    Node* next;
+    Node* previous;
+    PlaceHolderType payload;
+    //default constructor
+    Node(){
+        next=previous=nullptr;
+    }
+    //overloaded constructor
+    Node(PlaceHolderType payload){
+        this->payload=payload;
+        next=previous=nullptr;
+    }
+};
+
+template <typename PlaceHolderType>
 class DSList{
 private:
-    struct Node{
-        Node* next;
-        Node* previous;
-        PlaceHolderType payload;
-    };
-    Node* head;
-    Node* tail;
+    Node<PlaceHolderType>* head;
+    Node<PlaceHolderType>* tail;
 
 public:
     //default constructor
@@ -28,7 +38,7 @@ public:
     //copy constructor
     DSList(const DSList & copy) {
         head=tail=nullptr;
-        Node* temp = copy.head;
+        Node<PlaceHolderType>* temp = copy.head;
         while(temp!=nullptr){
             push_back(temp->payload);
             temp = temp->next;
@@ -37,14 +47,14 @@ public:
     //copy assignment operator
     DSList& operator=(const DSList& copy){
         if(this != &copy){
-            Node* temp = head;
+            Node<PlaceHolderType>* temp = head;
             while(temp != nullptr){
-                Node* toDelete = temp;
+                Node<PlaceHolderType>* toDelete = temp;
                 temp = temp->next;
                 delete toDelete;
             }
             head=nullptr;
-            Node* temp2 = copy.head;
+            Node<PlaceHolderType>* temp2 = copy.head;
             while(temp2 !=nullptr){
                 push_back(temp2->payload);
                 temp2=temp->next;
@@ -57,7 +67,7 @@ public:
         if(head==nullptr){
             return;
         }
-        Node* temp = head->next;
+        Node<PlaceHolderType>* temp = head->next;
 
         while (head != nullptr) {
             delete head;
@@ -72,12 +82,12 @@ public:
     void push_back(PlaceHolderType data){
         //if list is empty
         if(head==nullptr){
-            head=new Node(data);
+            head=new Node<PlaceHolderType>(data);
             tail=head;
         }
         else{
             //put node at end of list
-            tail->next=new Node(data);
+            tail->next=new Node<PlaceHolderType>(data);
             tail->next->previous=tail;
             tail=tail->next;
         }
@@ -85,9 +95,9 @@ public:
     //insert a node after a node with given index
     void InsertAfter(int index,PlaceHolderType data) {
         //placement node
-        Node *curNode = nodeAt(index);
+        Node<PlaceHolderType> *curNode = nodeAt(index);
         //node to insert
-        Node *nodeToInsert = new Node(data);
+        Node<PlaceHolderType> *nodeToInsert = new Node<PlaceHolderType>(data);
         //if list is empty
         if (head == nullptr) {
             head = nodeToInsert;
@@ -101,7 +111,7 @@ public:
         }
             //insert in the middle of the list
         else {
-            Node * sucNode = curNode->next;
+            Node<PlaceHolderType> * sucNode = curNode->next;
             nodeToInsert->next = sucNode;
             nodeToInsert->previous = curNode;
             curNode->next = nodeToInsert;
@@ -110,11 +120,11 @@ public:
     }
     //remove a node with given index
     void removeAt(int index) {
-        Node *curNode = nodeAt(index);
+        Node<PlaceHolderType> *curNode = nodeAt(index);
         //pointer for next node
-        Node *sucNode = curNode->next;
+        Node<PlaceHolderType> *sucNode = curNode->next;
         //pointer for previous node
-        Node *predNode = curNode->previous;
+        Node<PlaceHolderType> *predNode = curNode->previous;
         //if successor exists, point successor's previous to predecessor
         if (sucNode!=nullptr) {
             sucNode->previous = predNode;
@@ -141,7 +151,7 @@ public:
         if(head==tail)
             return 1;
         //if size is greater than 1
-        Node* temp=head;
+        Node<PlaceHolderType>* temp=head;
         int size=1;
         //increase size as it passes through each node
         while(temp!=tail){
@@ -152,7 +162,7 @@ public:
     }
     //return payload at given index
     PlaceHolderType& at(int index){
-        Node* temp=head;
+        Node<PlaceHolderType>* temp=head;
         //move temp pointer to index
         for(int i=0;i<index;i++){
             temp=temp->next;
@@ -160,8 +170,8 @@ public:
         return temp->payload;
     }
     //return node pointer for given index
-    Node* nodeAt(int index){
-        Node* temp=head;
+    Node<PlaceHolderType>* nodeAt(int index){
+        Node<PlaceHolderType>* temp=head;
 
         for(int i=0;i<index;i++){
             temp=temp->next;
@@ -169,11 +179,11 @@ public:
         return temp;
     }
     //return previous pointer for given index
-    Node* getPrevious(int index){
+    Node<PlaceHolderType>* getPrevious(int index){
         return nodeAt(index)->previous;
     }
     //return next pointer for given index
-    Node* getNext(int index){
+    Node<PlaceHolderType>* getNext(int index){
         return nodeAt(index)->next;
     }
 };

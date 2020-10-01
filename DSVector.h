@@ -74,7 +74,7 @@ public:
             if(i!=index){
                 tempData[i] = data[x];
             }
-            //at index to be removed, skip transfer
+                //at index to be removed, skip transfer
             else{
                 x++;
                 tempData[i] = data[x];
