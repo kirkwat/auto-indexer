@@ -6,14 +6,18 @@
 
 using namespace std;
 
-Keyword::Keyword(){}
+Keyword::Keyword(){
+    isSorted=0;
+}
 
 Keyword::Keyword(char input[]){
     word=DSString(input);
+    isSorted=0;
 }
 
 Keyword::Keyword(DSString input){
     word=input;
+    isSorted=0;
 }
 
 bool Keyword::operator== (const Keyword& copy)const{
@@ -80,6 +84,9 @@ void Keyword::addSub(int index){
 }
 //print
 bool Keyword::printPages(){
+    if(isSorted==0){
+        sortPages();
+    }
     cout<<word<<": ";
     if(pageNumbers.size()==1){
         cout<<pageNumbers[0]<<endl;
@@ -129,6 +136,7 @@ void Keyword::sortPages(int left, int right){
 //sort page numbers in ascending order
 void Keyword::sortPages(){
     sortPages(0,pageNumbers.size()-1);
+    isSorted=1;
 }
 void Keyword::sortPages(int left, int right){
     //end sort if vector size is less than or equal to 1

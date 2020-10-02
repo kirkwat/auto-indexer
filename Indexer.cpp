@@ -30,6 +30,8 @@ void Indexer::parse(char* inputFile){
     do {
         //read file
         file >> input;
+        //convert to lowercase
+        input.tolower();
         //check for page number
         if (input[0] == '<') {
             pageNumber = getPage(input);
@@ -45,6 +47,7 @@ void Indexer::parse(char* inputFile){
             //find end of phrase
             while(input2.findchr(']')==-1){
                 file>>input2;
+                input2.tolower();
                 input=input+" "+input2;
             }
             //check for master category for phrase
@@ -54,6 +57,9 @@ void Indexer::parse(char* inputFile){
                 DSString masterWord=DSString(input.substring(input.findchr('(')+1,numChar));
                 //get subword from string and remove brackets
                 input=input.substring(1,input.findchr(']')-1);
+                //remove any trailing punctuation from word
+                input=removeTrailPunct(input);
+                masterWord=removeTrailPunct(masterWord);
                 //add masterword to list
                 int masterIndex=addKeyIndex(masterWord, pageNumber);
                 //add word to list
@@ -64,6 +70,8 @@ void Indexer::parse(char* inputFile){
             else{
                 //remove brackets
                 input=input.substring(1,input.findchr(']')-1);
+                //remove any trailing punctuation from word
+                input=removeTrailPunct(input);
                 //add keyword to list
                 addKeyword(input, pageNumber);
             }
@@ -78,6 +86,9 @@ void Indexer::parse(char* inputFile){
                 //get subword from string
                 numChar=input.findchr('(');
                 input=input.substring(0,numChar);
+                //remove any trailing punctuation from word
+                input=removeTrailPunct(input);
+                masterWord=removeTrailPunct(masterWord);
                 //add masterword to list
                 int masterIndex=addKeyIndex(masterWord, pageNumber);
                 //add word to list
@@ -86,6 +97,8 @@ void Indexer::parse(char* inputFile){
                 assignSubWord(masterIndex,subIndex);
             }
             else{
+                //remove any trailing punctuation from word
+                input=removeTrailPunct(input);
                 //add keyword to list
                 addKeyword(input, pageNumber);
             }
@@ -108,7 +121,9 @@ void Indexer::create(char* outputFile){
         return;
     }
     //sort index
-    //sortIndex();
+    sortIndex();
+    cout<<"SORTED LIST"<<endl;
+    printList();
 
     file << "hello world" << std::endl;
     //TODO
@@ -266,6 +281,20 @@ void Indexer::sortIndex(int left, int right){
     sortIndex(left, num-2);
     //sort right side
     sortIndex(num, right);
+}
+//remove trailing punctuation from strings
+DSString Indexer::removeTrailPunct(DSString word){
+    if(ispunct(word[word.getLength()-1])){
+        for(int x=word.getLength()-1;x>=0;x--){
+            if(!ispunct(word[x])){
+                DSString temp=word.substring(0,x+1);
+                return temp;
+            }
+        }
+    }
+    else{
+        return word;
+    }
 }
 //TODO DELETE
 //print list

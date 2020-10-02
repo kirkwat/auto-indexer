@@ -14,6 +14,7 @@ private:
     DSVector<int> pageNumbers;
     DSVector<int> subwords;
     DSString word;
+    int isSorted;
 
 public:
     Keyword();

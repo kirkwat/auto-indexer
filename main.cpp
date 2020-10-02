@@ -18,7 +18,6 @@ int main(int argc, char** argv) {
 
 //for reading files
 //TODO: ignore trailing punctuation
-//TODO: ignore case
 
 //for creating index
 //TODO: sort page numbers

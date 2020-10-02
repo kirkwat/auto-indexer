@@ -197,3 +197,16 @@ int DSString::findchr(char chr){
     }
     return -1;
 }
+//convert string to all lowercase
+void DSString::tolower(){
+    for(int x=0;x<strlen(string);x++){
+        string[x]=tolower(string[x]);
+    }
+}
+//convert char to lowercase
+char DSString::tolower(char ch) {
+    if (ch >= 'A' && ch <= 'Z'){
+        ch = 'a' + (ch - 'A');
+    }
+    return ch;
+}

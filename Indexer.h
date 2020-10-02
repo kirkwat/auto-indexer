@@ -26,6 +26,7 @@ public:
     void assignSubWord(int,int);
     void sortIndex();
     void sortIndex(int,int);
+    DSString removeTrailPunct(DSString word);
 
     void printList();
 

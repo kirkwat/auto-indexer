@@ -101,6 +101,8 @@ public:
     int find(char[]);
     int find(DSString);
     int findchr(char chr);
+    void tolower();
+    char tolower(char);
 };
 
 
