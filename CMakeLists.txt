@@ -11,7 +11,7 @@ set (EXE_NAME indexer)
 #   set (input02 "train_target.csv")
 # etc....
 
-set (input01 "input01.txt")
+set (input01 "input03.txt")
 
 #
 ##########################################

@@ -15,11 +15,7 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-
-//for reading files
-//TODO: ignore trailing punctuation
-
 //for creating index
-//TODO: sort page numbers
-//TODO: sort keywords alphabetically, use ascii
 //TODO: print to file, 50 char per line
+//TODO: make code look nice and comment
+//TODO: email fontenot about project 1 and 2

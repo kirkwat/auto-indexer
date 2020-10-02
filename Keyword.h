@@ -12,7 +12,7 @@
 class Keyword {
 private:
     DSVector<int> pageNumbers;
-    DSVector<int> subwords;
+    DSVector<DSString> subwords;
     DSString word;
     int isSorted;
 
@@ -26,16 +26,14 @@ public:
     bool operator< (const Keyword&)const;
 
     void addPage(int);
-    void addSub(int);
-    bool printPages();
-    void sortSub();
-    void sortSub(int, int);
+    void addSub(DSString);
+    bool printKeyword(ofstream &fout);
     void sortPages();
     void sortPages(int, int);
 
     DSString getWord()const;
     int getSubSize();
-    int getSubAt(int);
+    DSString getSubAt(int);
 
 };
 

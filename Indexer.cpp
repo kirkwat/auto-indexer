@@ -16,12 +16,12 @@ Indexer::Indexer(){}
 //read file and place into indexed list
 void Indexer::parse(char* inputFile){
     ifstream file;
-    cout<<"Reading input01.txt..."<<endl;
+    cout<<"Reading "<<inputFile<<"..."<<endl;
     //open users table file
     file.open(inputFile);
     //check if it was opened properly
     if (!file.is_open()) {
-        cout << "Could not open file input01.txt." << endl;
+        cout << "Could not open file "<<inputFile<<"." << endl;
         return;
     }
     int pageNumber = 0;
@@ -63,9 +63,9 @@ void Indexer::parse(char* inputFile){
                 //add masterword to list
                 int masterIndex=addKeyIndex(masterWord, pageNumber);
                 //add word to list
-                int subIndex=addKeyIndex(input, pageNumber);
+                addKeyword(input, pageNumber);
                 //add subword pointer to masterwords list
-                assignSubWord(masterIndex,subIndex);
+                assignSubWord(masterIndex,input);
             }
             else{
                 //remove brackets
@@ -92,9 +92,9 @@ void Indexer::parse(char* inputFile){
                 //add masterword to list
                 int masterIndex=addKeyIndex(masterWord, pageNumber);
                 //add word to list
-                int subIndex=addKeyIndex(input, pageNumber);
+                addKeyword(input, pageNumber);
                 //add subword pointer to masterwords list
-                assignSubWord(masterIndex,subIndex);
+                assignSubWord(masterIndex,input);
             }
             else{
                 //remove any trailing punctuation from word
@@ -104,28 +104,22 @@ void Indexer::parse(char* inputFile){
             }
         }
     }while(pageNumber!=-1);
-    //TODO DELETE
-    printList();
     //close file
     file.close();
     cout<<"...Complete"<<endl;
 }
 //create index
 void Indexer::create(char* outputFile){
-    cout<<endl<<"Creating index and saving it to output.txt..."<<endl;
+    cout<<endl<<"Creating index and saving it to "<<outputFile<<"..."<<endl;
     //open results file
     ofstream file(outputFile);
     //check if it was opened properly
     if (!file.is_open()) {
-        cout << "Could not open file output.txt." << endl;
+        cout << "Could not open file "<<outputFile<<"." << endl;
         return;
     }
     //sort index
     sortIndex();
-    cout<<"SORTED LIST"<<endl;
-    printList();
-
-    file << "hello world" << std::endl;
     //TODO
     //TODO
     //TODO
@@ -133,6 +127,34 @@ void Indexer::create(char* outputFile){
     //TODO
     //TODO
 
+    char letter,temp;
+    //format and output index to file
+    for(int z=0;z<index.getSize();z++){
+        //get char for alphabetical categories
+        temp=index.at(z).getWord()[0];
+        //assign letter at beginning and when letter changes
+        if(z==0||temp!=letter){
+            letter=temp;
+            file<<"["<<char(toupper(letter))<<"]"<<endl;
+        }
+        //if keyword has subwords, print subwords
+        if(index.at(z).printKeyword(file)){
+            //loop through each subword
+            for(int b=0;b<index.at(z).getSubSize();b++){
+                //indent for subwords
+                file<<"  ";
+                //get subword
+                DSString subword=index.at(z).getSubAt(b);
+                //find subword in list
+                for(int c=0;c<index.getSize();c++){
+                    //print keyword when found
+                    if(subword==index.at(c).getWord()){
+                        index.at(c).printKeyword(file);
+                    }
+                }
+            }
+        }
+    }
     //close file
     file.close();
     cout<<"...Complete"<<endl;
@@ -253,8 +275,8 @@ int Indexer::addKeyIndex(DSString input, int pageNumber){
     }
 }
 //assign subwords to its masterword
-void Indexer::assignSubWord(int masterIndex,int subIndex){
-    index.at(masterIndex).addSub(subIndex);
+void Indexer::assignSubWord(int masterIndex,DSString subWord){
+    index.at(masterIndex).addSub(subWord);
 }
 //sort keywords in alphabetical order
 void Indexer::sortIndex(){
@@ -294,22 +316,5 @@ DSString Indexer::removeTrailPunct(DSString word){
     }
     else{
         return word;
-    }
-}
-//TODO DELETE
-//print list
-void Indexer::printList(){
-    //sortIndex();
-    //print keywords and their pages
-    for(int z=0;z<index.getSize();z++){
-        //if keyword has subwords, print subwords
-        if(index.at(z).printPages()){
-            //loop through each subword
-            for(int b=0;b<index.at(z).getSubSize();b++){
-                //indent for subwords
-                cout<<"  ";
-                index.at(index.at(z).getSubAt(b)).printPages();
-            }
-        }
     }
 }

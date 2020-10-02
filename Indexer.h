@@ -23,7 +23,7 @@ public:
     int getPage(DSString);
     void addKeyword(DSString,int);
     int addKeyIndex(DSString,int);
-    void assignSubWord(int,int);
+    void assignSubWord(int,DSString);
     void sortIndex();
     void sortIndex(int,int);
     DSString removeTrailPunct(DSString word);
