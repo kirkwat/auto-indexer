@@ -1,6 +1,4 @@
 #define CATCH_CONFIG_RUNNER
-#include <fstream>
-#include <iostream>
 #include "catch.hpp"
 #include "Indexer.h"
 
@@ -8,15 +6,11 @@ int main(int argc, char** argv) {
     if(argc==1){
         return Catch::Session().run();
     }
-    /*
-    std::ofstream outputstream(argv[2]);
-    outputstream << "Hello, World!" << std::endl;
-    outputstream.close();
-    std::cout << "Hello and wrote sample output file." << std::endl;*/
+    //create index object
     Indexer index= Indexer();
-
+    //read file
     index.parse(argv[1]);
-
+    //create index
     index.create(argv[2]);
 
     return 0;

@@ -24,6 +24,8 @@ public:
     void addKeyword(DSString,int);
     int addKeyIndex(DSString,int);
     void assignSubWord(int,int);
+    void sortIndex();
+    void sortIndex(int,int);
 
     void printList();
 

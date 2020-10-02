@@ -8,6 +8,7 @@
 #include "DSList.h"
 #include <math.h>
 #include <cstring>
+#include <algorithm>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ void Indexer::parse(char* inputFile){
     file.open(inputFile);
     //check if it was opened properly
     if (!file.is_open()) {
-        cout << "Could not open file prisonDoorScarletLetter.txt." << endl;
+        cout << "Could not open file input01.txt." << endl;
         return;
     }
     int pageNumber = 0;
@@ -106,7 +107,10 @@ void Indexer::create(char* outputFile){
         cout << "Could not open file output.txt." << endl;
         return;
     }
+    //sort index
+    //sortIndex();
 
+    file << "hello world" << std::endl;
     //TODO
     //TODO
     //TODO
@@ -195,7 +199,7 @@ void Indexer::addKeyword(DSString input, int pageNumber){
                 break;
             }
         }
-        //if not found, add keyword to list
+        //if not found, add keyword to list in alphabetical order
         if (f == 0) {
             word.addPage(pageNumber);
             index.push_back(word);
@@ -223,16 +227,50 @@ int Indexer::addKeyIndex(DSString input, int pageNumber){
         //if not found, add keyword to list
         word.addPage(pageNumber);
         index.push_back(word);
-        return index.getSize()-1;
+        //find word to return its index
+        for (int i = 0; i < index.getSize(); i++) {
+            //when found return index
+            if (word == index.at(i)) {
+                index.at(i).addPage(pageNumber);
+                return i;
+            }
+        }
     }
 }
 //assign subwords to its masterword
 void Indexer::assignSubWord(int masterIndex,int subIndex){
     index.at(masterIndex).addSub(subIndex);
 }
+//sort keywords in alphabetical order
+void Indexer::sortIndex(){
+    sortIndex(0,index.getSize()-1);
+}
+void Indexer::sortIndex(int left, int right){
+    //end sort if list size is less than or equal to 1
+    if (left >= right){
+        return;
+    }
+    //quicksort index
+    DSString pivot = index.at(right).getWord();
+    int num = left;
+    for (int i = left; i <= right; i++){
+        //if true swap elements
+        if (index.at(i).getWord() < pivot||index.at(i).getWord() == pivot){
+            Keyword temp=index.at(num);
+            index.at(num)=index.at(i);
+            index.at(i)=temp;
+            num++;
+        }
+    }
+    //sort left side
+    sortIndex(left, num-2);
+    //sort right side
+    sortIndex(num, right);
+}
 //TODO DELETE
 //print list
 void Indexer::printList(){
+    //sortIndex();
     //print keywords and their pages
     for(int z=0;z<index.getSize();z++){
         //if keyword has subwords, print subwords

@@ -2,11 +2,10 @@
 // Created by watso on 9/28/2020.
 //
 #include "catch.hpp"
-//#include "DSList.h"
+#include "DSList.h"
 #include "DSVector.h"
 
 TEST_CASE("LinkedList and vector class", "[linkedListAndVector]"){
-    /*
     SECTION("Linked list creation and push back"){
         DSList<int> list1;
         list1.push_back(1);
@@ -70,7 +69,7 @@ TEST_CASE("LinkedList and vector class", "[linkedListAndVector]"){
         REQUIRE(list6.at(1) == 4);
         REQUIRE(list6.at(2) == 8);
     }
-    */
+
     SECTION("Vector creation and push back"){
         DSVector<int> list1;
         list1.push_back(1);

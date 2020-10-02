@@ -21,12 +21,18 @@ public:
     Keyword(DSString);
 
     bool operator== (const Keyword&)const;
+    bool operator> (const Keyword&)const;
+    bool operator< (const Keyword&)const;
 
     void addPage(int);
     void addSub(int);
     bool printPages();
-    DSString getWord();
+    void sortSub();
+    void sortSub(int, int);
+    void sortPages();
+    void sortPages(int, int);
 
+    DSString getWord()const;
     int getSubSize();
     int getSubAt(int);
 

@@ -183,7 +183,7 @@ public:
         return nodeAt(index)->previous;
     }
     //return next pointer for given index
-    Node<PlaceHolderType>* getNext(int index){
+    Node<PlaceHolderType>* getNext(int index) {
         return nodeAt(index)->next;
     }
 };

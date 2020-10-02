@@ -24,6 +24,24 @@ bool Keyword::operator== (const Keyword& copy)const{
         return false;
     }
 }
+//greater than operator with string
+bool Keyword::operator> (const Keyword& copy)const{
+    if(word>copy.getWord()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+//less than operator with string
+bool Keyword::operator< (const Keyword& copy)const{
+    if(word<copy.getWord()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 void Keyword::addPage(int page){
     //add page to vector if vector is empty
@@ -81,9 +99,61 @@ bool Keyword::printPages(){
         return true;
     }
     return false;
+}/*
+//sort sub in ascending order
+void Keyword::sortSub(){
+    sortPages(0,subwords.size()-1);
+}
+void Keyword::sortPages(int left, int right){
+    //end sort if vector size is less than or equal to 1
+    if (left >= right){
+        return;
+    }
+    //quicksort page vector
+    int pivot = subwords[right];
+    int num = left;
+    for (int i = left; i <= right; i++){
+        //if true swap elements
+        if (subwords[i] <= pivot){
+            int temp=subwords[num];
+            subwords[num]=subwords[i];
+            subwords[i]=temp;
+            num++;
+        }
+    }
+    //sort left side
+    sortPages(left, num-2);
+    //sort right side
+    sortPages(num, right);
+}*/
+//sort page numbers in ascending order
+void Keyword::sortPages(){
+    sortPages(0,pageNumbers.size()-1);
+}
+void Keyword::sortPages(int left, int right){
+    //end sort if vector size is less than or equal to 1
+    if (left >= right){
+        return;
+    }
+    //quicksort page vector
+    int pivot = pageNumbers[right];
+    int num = left;
+    for (int i = left; i <= right; i++){
+        //if true swap elements
+        if (pageNumbers[i] <= pivot){
+            int temp=pageNumbers[num];
+            pageNumbers[num]=pageNumbers[i];
+            pageNumbers[i]=temp;
+            num++;
+        }
+    }
+    //sort left side
+    sortPages(left, num-2);
+    //sort right side
+    sortPages(num, right);
 }
 //return string of keyword
-DSString Keyword::getWord(){
+DSString Keyword::getWord()const{
     return word;
 }
 //return size of sub index vector
