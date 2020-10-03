@@ -187,7 +187,7 @@ int DSString::find(DSString sub){
     //if the substring can't be found
     return -1;
 }
-
+//find character in a string and return index
 int DSString::findchr(char chr){
     char* pointer;
     pointer=strchr(string,chr);
@@ -195,6 +195,7 @@ int DSString::findchr(char chr){
     {
         return pointer-string;
     }
+    //return -1 if not found
     return -1;
 }
 //convert string to all lowercase

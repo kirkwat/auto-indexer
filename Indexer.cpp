@@ -8,7 +8,6 @@
 #include "DSList.h"
 #include <math.h>
 #include <cstring>
-#include <algorithm>
 
 using namespace std;
 
@@ -76,7 +75,7 @@ void Indexer::parse(char* inputFile){
                 addKeyword(input, pageNumber);
             }
         }
-            //if input is just a word
+        //if input is just a word
         else{
             //check for master category for word
             if(input.findchr('(')!=-1){
@@ -120,12 +119,6 @@ void Indexer::create(char* outputFile){
     }
     //sort index
     sortIndex();
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
-    //TODO
 
     char letter,temp;
     //format and output index to file
@@ -149,7 +142,7 @@ void Indexer::create(char* outputFile){
                 for(int c=0;c<index.getSize();c++){
                     //print keyword when found
                     if(subword==index.at(c).getWord()){
-                        index.at(c).printKeyword(file);
+                        bool placeholder=index.at(c).printKeyword(file);
                     }
                 }
             }
@@ -306,9 +299,11 @@ void Indexer::sortIndex(int left, int right){
 }
 //remove trailing punctuation from strings
 DSString Indexer::removeTrailPunct(DSString word){
+    //loop through end of string until reaching the end of punctuation
     if(ispunct(word[word.getLength()-1])){
         for(int x=word.getLength()-1;x>=0;x--){
             if(!ispunct(word[x])){
+                //remove punctuation
                 DSString temp=word.substring(0,x+1);
                 return temp;
             }

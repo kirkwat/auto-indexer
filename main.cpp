@@ -3,6 +3,7 @@
 #include "Indexer.h"
 
 int main(int argc, char** argv) {
+    //run catch test if there are no arguments
     if(argc==1){
         return Catch::Session().run();
     }
@@ -15,7 +16,3 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-//for creating index
-//TODO: print to file, 50 char per line
-//TODO: make code look nice and comment
-//TODO: email fontenot about project 1 and 2

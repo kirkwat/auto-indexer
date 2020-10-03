@@ -28,8 +28,9 @@ public:
     void addPage(int);
     void addSub(DSString);
     bool printKeyword(ofstream &fout);
-    void sortPages();
+    void sort();
     void sortPages(int, int);
+    void sortSub(int, int);
 
     DSString getWord()const;
     int getSubSize();
