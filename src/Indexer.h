@@ -1,7 +1,3 @@
-//
-// Created by watso on 10/1/2020.
-//
-
 #ifndef INC_20F_AUTO_IDX_INDEXER_H
 #define INC_20F_AUTO_IDX_INDEXER_H
 
@@ -12,9 +8,10 @@
 
 using namespace std;
 
+//This class parses the input file and generates the keyword index.
 class Indexer {
 private:
-    DSList<Keyword> index;
+    DSList<Keyword> index;  //list of words as part of the index
 
 public:
     Indexer();

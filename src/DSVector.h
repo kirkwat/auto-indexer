@@ -1,7 +1,3 @@
-//
-// Created by watso on 9/24/2020.
-//
-
 #ifndef INC_20F_AUTO_IDX_DSVECTOR_H
 #define INC_20F_AUTO_IDX_DSVECTOR_H
 
@@ -9,12 +5,13 @@
 
 using namespace std;
 
+//This class implements a templated Vector container.
 template <class PlaceHolderType>
 class DSVector {
 private:
-    PlaceHolderType *data;
-    int capacity;
-    int length;
+    PlaceHolderType *data;  //array pointer
+    int capacity;           //size of array
+    int length;             //filled elements in array
 
 public:
     //default constructor
@@ -24,6 +21,7 @@ public:
         data=new PlaceHolderType[capacity];
     }
     //copy constructor
+    //arguments - referenced object
     DSVector(const DSVector<PlaceHolderType> & copy) {
         length = copy.length;
         capacity = copy.capacity;
@@ -34,6 +32,7 @@ public:
         }
     }
     //copy assignment operator
+    //arguments - referenced object
     DSVector& operator=(const DSVector<PlaceHolderType>& copy){
         if (this != &copy) {
             delete[] data;
@@ -52,6 +51,7 @@ public:
         delete[] data;
     }
     //push back a new element into vector
+    //arguments - element payload
     void push_back(const PlaceHolderType& payload){
         //if array is full, increase capacity
         if(length==capacity){
@@ -61,6 +61,7 @@ public:
         length++;
     }
     //remove an element with given index
+    //arguments - element index
     void remove(int index){
         //decrease array size
         length--;
@@ -107,6 +108,7 @@ public:
         return tempData;
     }
     //return element at given index
+    //arguments - element index
     PlaceHolderType& operator[] (int index){
         return data[index];
     }

@@ -1,7 +1,3 @@
-//
-// Created by watso on 10/1/2020.
-//
-
 #ifndef INC_20F_AUTO_IDX_KEYWORD_H
 #define INC_20F_AUTO_IDX_KEYWORD_H
 
@@ -9,12 +5,13 @@
 #include "DSVector.h"
 #include "DSString.h"
 
+//This class contains characteristics of a keyword in the index.
 class Keyword {
 private:
-    DSVector<int> pageNumbers;
-    DSVector<DSString> subwords;
-    DSString word;
-    int isSorted;
+    DSVector<int> pageNumbers;      //pages containing the keyword
+    DSVector<DSString> subwords;    //words that are under a master keyword category
+    DSString word;                  //string of keyword
+    int isSorted;                   //tracks if words are sorted
 
 public:
     Keyword();

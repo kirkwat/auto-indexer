@@ -1,7 +1,3 @@
-//
-// Created by watso on 10/1/2020.
-//
-
 #include <cstring>
 #include <iostream>
 #include "DSString.h"
@@ -13,6 +9,7 @@ DSString::DSString() {
     string[0]='\0';
 }
 //overloaded constructor with cstring
+//arguments - char array
 DSString::DSString(const char* cstring){
     if(cstring==nullptr){
         string=new char[1];
@@ -24,6 +21,7 @@ DSString::DSString(const char* cstring){
     }
 }
 //copy constructor
+//arguments - referenced object
 DSString::DSString(const DSString& copy){
     string = new char[strlen(copy.string) + 1];
     strcpy(string, copy.string);
@@ -33,6 +31,7 @@ DSString::~DSString(){
     delete[] string;
 }
 //copy assignment operator with cstring
+//arguments - referenced char array
 DSString& DSString::operator= (const char* copy){
     delete[] string;
     string = new char[strlen(copy) + 1];
@@ -41,6 +40,7 @@ DSString& DSString::operator= (const char* copy){
     return *this;
 }
 //copy assignment operator with string
+//arguments - referenced object
 DSString& DSString::operator= (const DSString& copy){
     if (this != &copy) {
         delete [] string;
@@ -50,6 +50,7 @@ DSString& DSString::operator= (const DSString& copy){
     return *this;
 }
 //+ operator with string
+//arguments - referenced object
 DSString DSString::operator+ (const DSString& copy){
     char* string2 = new char[strlen(string)+strlen(copy.string) + 1];
 
@@ -59,6 +60,7 @@ DSString DSString::operator+ (const DSString& copy){
     return DSString(string2);
 }
 //equal to operator with cstring
+//arguments - referenced char array
 bool DSString::operator== (const char* string2)const{
     if(strcmp(string,string2)==0){
         return true;
@@ -68,6 +70,7 @@ bool DSString::operator== (const char* string2)const{
     }
 }
 //equal to operator with string
+//arguments - referenced object
 bool DSString::operator== (const DSString& copy)const{
     if(strcmp(string,copy.string)==0){
         return true;
@@ -77,6 +80,7 @@ bool DSString::operator== (const DSString& copy)const{
     }
 }
 //greater than operator with string
+//arguments - referenced object
 bool DSString::operator> (const DSString& copy)const{
     if(strcmp(string,copy.string)>0){
         return true;
@@ -86,6 +90,7 @@ bool DSString::operator> (const DSString& copy)const{
     }
 }
 //less than operator with string
+//arguments - referenced object
 bool DSString::operator< (const DSString& copy)const{
     if(strcmp(string,copy.string)<0){
         return true;
@@ -95,6 +100,7 @@ bool DSString::operator< (const DSString& copy)const{
     }
 }
 //access operator, returns element at given index
+//arguments - char index
 char& DSString::operator[] (const int index){
     //return first element of string, if index is bigger than string
     if(index>strlen(string)) {
@@ -107,6 +113,7 @@ int DSString::getLength(){
     return strlen(string);
 }
 //returns a substring within the string using the index and length
+//arguments - char index, number of characters
 DSString DSString::substring(int start, int numChars){
     DSString substring;
     //if parameters arent positive, an empty string will be returned
@@ -144,6 +151,7 @@ std::istream& operator>> (std::istream& in, const DSString& str) {
     return in;
 }
 //find substring in string
+//arguments - substring as char array
 int DSString::find(char sub[]){
     //make sure substring is not bigger than string
     if(strlen(string)<strlen(sub))
@@ -166,6 +174,7 @@ int DSString::find(char sub[]){
     return -1;
 }
 //find substring in string
+//arguments - substring as string object
 int DSString::find(DSString sub){
     //make sure substring is not bigger than string
     if(strlen(string)<strlen(sub.string))
@@ -188,6 +197,7 @@ int DSString::find(DSString sub){
     return -1;
 }
 //find character in a string and return index
+//arguments - character
 int DSString::findchr(char chr){
     char* pointer;
     pointer=strchr(string,chr);
@@ -205,6 +215,7 @@ void DSString::tolower(){
     }
 }
 //convert char to lowercase
+//arguments - character
 char DSString::tolower(char ch) {
     if (ch >= 'A' && ch <= 'Z'){
         ch = 'a' + (ch - 'A');

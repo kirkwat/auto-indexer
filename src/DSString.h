@@ -1,43 +1,19 @@
-//
-// Created by watso on 10/1/2020.
-//
-
 #ifndef INC_20F_AUTO_IDX_DSSTRING_H
 #define INC_20F_AUTO_IDX_DSSTRING_H
-
 
 #include <iostream>
 
 using namespace std;
-
+//This class implements a String container.
 class DSString {
 private:
-    char* string;
-    /**
-     *  You will need to add some private data members here.
-     *  This is up to your discretion.  However, we **strongly**
-     *  encourage you to implement your string class as a wrapper
-     *  for typical null-terminated c-strings.  In doing this, you
-     *  may use c-sting functions in the methods in this class such
-     *  as:
-     *    * strlen(...)
-     *    * strcpy(...)
-     *    * strcmp(...)
-     *    * strncpy(...)
-     *    * strcat(...)
-     *    * strncat(...)
-     *
-     *    A quick google search will return plenty of references on
-     *    the c-string functions.
-     **/
-
+    char* string;   //char array to hold string
 
 public:
 
     /**
      * Constructors and destructor
      *
-     * Make sure you do proper memory management.
      **/
     DSString();
     DSString(const char*);
@@ -45,8 +21,7 @@ public:
     ~DSString();
 
     /**
-     * Standard relational operators.  You are free to expand this
-     * list if you'd like.
+     * Standard relational operators.
      *
      * Note that for each operator, there are two overloaded versions:
      *    one that takes a DSString object
@@ -90,13 +65,6 @@ public:
     friend std::ostream& operator<< (std::ostream&, const DSString&);
 
     friend std::istream& operator>> (std::istream&, const DSString&);
-
-    //You are free to add more functionality to the class.  For example,
-    //you may want to add a find(...) function that will search for a
-    //string within a string.  (just an example)
-    //
-    //Further - you will be able to update and modify this class as the
-    //semester progresses.
 
     int find(char[]);
     int find(DSString);

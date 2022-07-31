@@ -1,7 +1,3 @@
-//
-// Created by watso on 10/1/2020.
-//
-
 #include "Keyword.h"
 #include <fstream>
 
@@ -11,16 +7,19 @@ Keyword::Keyword(){
     isSorted=0;
 }
 //overloaded constructor with cstring
+//arguments - word char array
 Keyword::Keyword(char input[]){
     word=DSString(input);
     isSorted=0;
 }
 //overloaded constructor with string
+//arguments - word string
 Keyword::Keyword(DSString input){
     word=input;
     isSorted=0;
 }
-
+//equal to operator with string
+//arguments - referenced object
 bool Keyword::operator== (const Keyword& copy)const{
     if(word==copy.word){
         return true;
@@ -30,6 +29,7 @@ bool Keyword::operator== (const Keyword& copy)const{
     }
 }
 //greater than operator with string
+//arguments - referenced object
 bool Keyword::operator> (const Keyword& copy)const{
     if(word>copy.getWord()){
         return true;
@@ -39,6 +39,7 @@ bool Keyword::operator> (const Keyword& copy)const{
     }
 }
 //less than operator with string
+//arguments - referenced object
 bool Keyword::operator< (const Keyword& copy)const{
     if(word<copy.getWord()){
         return true;
@@ -48,6 +49,7 @@ bool Keyword::operator< (const Keyword& copy)const{
     }
 }
 //add pages to page vector
+//arguments - page number
 void Keyword::addPage(int page){
     //add page to vector if vector is empty
     if(pageNumbers.size()==0){
@@ -66,6 +68,7 @@ void Keyword::addPage(int page){
     }
 }
 //add subword to subword vector
+//arguments - subword for keyword
 void Keyword::addSub(DSString index){
     //add string to vector if vector is empty
     if(subwords.size()==0){
@@ -84,14 +87,17 @@ void Keyword::addSub(DSString index){
     }
 }
 //print keyword and its page numbers to file
+//arguments - referenced fstream
 bool Keyword::printKeyword(ofstream &fout){
     //sort page numbers if they havent been already
     if(isSorted==0){
         sort();
     }
     fout<<word+": ";
+    cout<<word+": ";
     //print page numbers
     if(pageNumbers.size()==1){
+        cout<<pageNumbers[0]<<endl;
         fout<<pageNumbers[0]<<endl;
     }
     else{
@@ -100,9 +106,12 @@ bool Keyword::printKeyword(ofstream &fout){
             //end line for last number
             if(x==pageNumbers.size()-1){
                 fout<<pageNumbers[x]<<endl;
+                cout<<pageNumbers[x]<<endl;
+
             }
             else{
                 fout<<pageNumbers[x]<<", ";
+                cout<<pageNumbers[x]<<", ";
             }
         }
     }
@@ -121,6 +130,7 @@ void Keyword::sort(){
     isSorted=1;
 }
 //recursion sort for page numbers
+//arguments - left side of vector, right side of vector
 void Keyword::sortPages(int left, int right){
     //end sort if vector size is less than or equal to 1
     if (left >= right){
@@ -144,6 +154,7 @@ void Keyword::sortPages(int left, int right){
     sortPages(num, right);
 }
 //recursion sort for subwords
+//arguments - left side of vector, right side of vector
 void Keyword::sortSub(int left, int right){
     //end sort if vector size is less than or equal to 1
     if (left >= right){
@@ -175,6 +186,7 @@ int Keyword::getSubSize(){
     return subwords.size();
 }
 //return sub index from vector for given index
+//arguments - subword index
 DSString Keyword::getSubAt(int index){
     return subwords[index];
 }

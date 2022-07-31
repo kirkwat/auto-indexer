@@ -1,11 +1,6 @@
-//
-// Created by watso on 10/1/2020.
-//
-
 #include <iostream>
 #include <fstream>
 #include "Indexer.h"
-#include "DSList.h"
 #include <math.h>
 #include <cstring>
 
@@ -13,6 +8,7 @@ using namespace std;
 
 Indexer::Indexer(){}
 //read file and place into indexed list
+//arguments - input file path
 void Indexer::parse(char* inputFile){
     ifstream file;
     cout<<"Reading "<<inputFile<<"..."<<endl;
@@ -108,6 +104,7 @@ void Indexer::parse(char* inputFile){
     cout<<"...Complete"<<endl;
 }
 //create index
+//arguments - output file path
 void Indexer::create(char* outputFile){
     cout<<endl<<"Creating index and saving it to "<<outputFile<<"..."<<endl;
     //open results file
@@ -119,7 +116,7 @@ void Indexer::create(char* outputFile){
     }
     //sort index
     sortIndex();
-
+    cout<<endl<<"Index: "<<endl;
     char letter,temp;
     //format and output index to file
     for(int z=0;z<index.getSize();z++){
@@ -128,6 +125,7 @@ void Indexer::create(char* outputFile){
         //assign letter at beginning and when letter changes
         if(z==0||temp!=letter){
             letter=temp;
+            cout<<"["<<char(toupper(letter))<<"]"<<endl;
             file<<"["<<char(toupper(letter))<<"]"<<endl;
         }
         //if keyword has subwords, print subwords
@@ -136,6 +134,7 @@ void Indexer::create(char* outputFile){
             for(int b=0;b<index.at(z).getSubSize();b++){
                 //indent for subwords
                 file<<"  ";
+                cout<<"  ";
                 //get subword
                 DSString subword=index.at(z).getSubAt(b);
                 //find subword in list
@@ -150,9 +149,10 @@ void Indexer::create(char* outputFile){
     }
     //close file
     file.close();
-    cout<<"...Complete"<<endl;
+    cout<<endl<<"...Complete"<<endl;
 }
 //get page number from input
+//arguments - unparsed page input
 int Indexer::getPage(DSString pageInput){
     //end of file if input is <-1>
     if(pageInput[1]=='-'&&pageInput[2]=='1'){
@@ -210,6 +210,7 @@ int Indexer::getPage(DSString pageInput){
     return pageNumber;
 }
 //add keyword to list
+//arguments - keyword input, keyword page number
 void Indexer::addKeyword(DSString input, int pageNumber){
     //create word
     Keyword word=Keyword(input);
@@ -237,6 +238,7 @@ void Indexer::addKeyword(DSString input, int pageNumber){
     }
 }
 //add keyword and return its index in the list
+//arguments - keyword input, keyword page number
 int Indexer::addKeyIndex(DSString input, int pageNumber){
     //create word
     Keyword word=Keyword(input);
@@ -266,8 +268,10 @@ int Indexer::addKeyIndex(DSString input, int pageNumber){
             }
         }
     }
+    return -1;
 }
 //assign subwords to its masterword
+//arguments - index of word, subword string
 void Indexer::assignSubWord(int masterIndex,DSString subWord){
     index.at(masterIndex).addSub(subWord);
 }
@@ -275,6 +279,7 @@ void Indexer::assignSubWord(int masterIndex,DSString subWord){
 void Indexer::sortIndex(){
     sortIndex(0,index.getSize()-1);
 }
+//arguments - left side of list, right side of list
 void Indexer::sortIndex(int left, int right){
     //end sort if list size is less than or equal to 1
     if (left >= right){
@@ -298,6 +303,7 @@ void Indexer::sortIndex(int left, int right){
     sortIndex(num, right);
 }
 //remove trailing punctuation from strings
+//arguments - word string
 DSString Indexer::removeTrailPunct(DSString word){
     //loop through end of string until reaching the end of punctuation
     if(ispunct(word[word.getLength()-1])){
@@ -312,4 +318,5 @@ DSString Indexer::removeTrailPunct(DSString word){
     else{
         return word;
     }
+    return word;
 }
